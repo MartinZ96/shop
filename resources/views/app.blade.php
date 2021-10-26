@@ -27,7 +27,7 @@
                     <li class="nav-item"><a class="nav-link" href="{{ route('about')}}">About</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('services')}}">Services</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('contact')}}">Contact</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('categories.index')}}">Categories</a></li>
+                   
                 @guest
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('login') }}">Login</a>
@@ -35,7 +35,8 @@
                 @endguest
 
                 @auth
-
+                 <li class="nav-item"><a class="nav-link" href="{{ route('products.index')}}">Products</a></li>
+                  <li class="nav-item"><a class="nav-link" href="{{ route('categories.index')}}">Categories</a></li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" onclick="document.getElementById('logout-form').submit()">Log out</a>
                     </li>

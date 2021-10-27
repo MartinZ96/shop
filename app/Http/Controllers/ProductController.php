@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
+use App\Http\Requests\StoreProductRequest;
 
 class ProductController extends Controller
 {
@@ -38,8 +39,9 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
+
         Product::create([
             'name'=>$request->name, 
             'description'=>$request->description,
@@ -70,7 +72,10 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $product = Product::findOrFail($id);
+        $categories = Category::all();
+
+        return view('products.edit', compact('product', 'categories')); 
     }
 
     /**
@@ -82,7 +87,16 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $product = Product::findOrFail($id);
+        $product->update([
+            'name'=>$request->name, 
+            'description'=>$request->description,
+            'price'=>$request->price,
+            'category_id'=>$request->category_id,
+            'photo'=>'',
+        ]);
+
+        return redirect()->route('products.index');
     }
 
     /**
@@ -93,6 +107,9 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = Product::findOrFail($id);
+        $product->delete();
+
+        return redirect()->route('products.index');
     }
 }
